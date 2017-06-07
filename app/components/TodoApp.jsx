@@ -30,9 +30,29 @@ var TodoApp = React.createClass({
 			todos:this.props.todos
 		}
 	},
-
 	handleDelete: function(task){
-		this.state.todos.splice(this.state.todos.indexOf(task), 1);
+		const taskId = task.props.id;
+		var x =0;
+		console.log(task.props.id);
+
+		for(x =0; x < this.state.todos.length;x++){
+			if(this.state.todos[x].id == taskId){
+	      	break;
+	      }
+		}
+
+		/*const todoToRemove = this.state.todos.filter((todo) => {
+
+	      if(todo.id == taskId){
+	      	console.log(todo.id);
+	      	return x;
+	      }
+	      x += 1;
+
+	    });*/
+
+		this.state.todos.splice(x, 1);
+
 		this.setState({
 			todos:this.state.todos
 		});
@@ -45,11 +65,12 @@ var TodoApp = React.createClass({
 		});
 	},
 	render: function(){
+		var todos = this.state.todos;
 
 		return(
 			<div className="row">
 				<h1>Your Todo List</h1>
-				<TodoList todos={this.state.todos} deleteTask={this.handleDelete}/>
+				<TodoList todos={todos} deleteTask={this.handleDelete}/>
 				<h2>Add A Task</h2>
 				<TodoForm addTask={this.handleTask}/>
 			</div>

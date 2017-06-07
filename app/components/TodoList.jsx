@@ -17,7 +17,6 @@ var TodoList = React.createClass({
 	},
 	render: function(){
 		var todos = this.state.todos;
-		console.log(todos);
 		var renderTodos = () => {
 			return todos.map((todo) => {
 				return (
