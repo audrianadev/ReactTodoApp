@@ -5,10 +5,16 @@ var Todo = React.createClass({
     var {id, text, completed} = this.props;
 
     return (
-      <div onClick={() =>{
+      <div>
+      <span onClick={() =>{
           this.props.onToggle(id);
         }}>
-        {text} <input type="checkbox" checked={completed}/>
+        <input type="checkbox" checked={completed}/> {text}
+      </span>
+      <button className="button" onClick={
+          () =>{
+            this.props.deleteClicked(id);
+          }}>X</button>
       </div>
     )
   }

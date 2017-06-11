@@ -30,6 +30,21 @@ var TodoApp = React.createClass({
       ]
     });
   },
+  handleDeleteTodo: function(id){
+		var x =0;
+
+		for(x =0; x < this.state.todos.length;x++){
+			if(this.state.todos[x].id == id){
+	      	break;
+	      }
+		}
+
+		this.state.todos.splice(x, 1);
+
+		this.setState({
+			todos:this.state.todos
+		});
+	},
   handleToggle:function(id){
     var updatedTodos = this.state.todos.map((todo)=>{
       if(todo.id === id){
@@ -53,10 +68,17 @@ var TodoApp = React.createClass({
     var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
 
     return (
-      <div>
+      <div className="row">
+        <div className="columns small-12">
+        <h1>Todo App</h1>
         <TodoSearch onSearch={this.handleSearch}/>
-        <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
+        <hr />
+        <h2>Your Todos</h2>
+        <TodoList todos={filteredTodos} onToggle={this.handleToggle}  deleteClicked={this.handleDeleteTodo}/>
+        <hr />
+        <h2>Add A Todo</h2>
         <AddTodo onAddTodo={this.handleAddTodo}/>
+        </div>
       </div>
     )
   }
