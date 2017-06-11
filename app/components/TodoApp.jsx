@@ -1,81 +1,65 @@
 var React = require('react');
+var uuid = require('node-uuid');
+
 var TodoList = require('TodoList');
-var TodoForm = require('TodoForm');
+var AddTodo = require('AddTodo');
+var TodoSearch = require('TodoSearch');
+var TodoAPI = require('TodoAPI');
+
 
 var TodoApp = React.createClass({
-	getDefaultProps: function () {
-        return {
-            todos:[
-				{
-					id:0,
-					text: 'Walk the dog'
-				},
-				{
-					id:1,
-					text: 'Clean the yard'
-				},
-				{
-					id:2,
-					text: 'Wash car'
-				},
-				{
-					id:3,
-					text: 'Clean room'
-				}
-			]
+  getInitialState: function () {
+    return {
+      showCompleted:false,
+      searchText: '',
+      todos: TodoAPI.getTodos()
+    };
+  },
+  componentDidUpdate: function(){
+    TodoAPI.setTodos(this.state.todos);
+  },
+  handleAddTodo: function (text) {
+    this.setState({
+      todos:[
+        ...this.state.todos,
+        {
+          id: uuid(),
+          text:text,
+          completed:false
         }
-    },
-	getInitialState: function(){
-		return{
-			todos:this.props.todos
-		}
-	},
-	handleDelete: function(task){
-		const taskId = task.props.id;
-		var x =0;
-		console.log(task.props.id);
+      ]
+    });
+  },
+  handleToggle:function(id){
+    var updatedTodos = this.state.todos.map((todo)=>{
+      if(todo.id === id){
+        todo.completed = !todo.completed;
+      }
+      return todo;
+    });
 
-		for(x =0; x < this.state.todos.length;x++){
-			if(this.state.todos[x].id == taskId){
-	      	break;
-	      }
-		}
+    this.setState({
+      todos: updatedTodos
+    });
+  },
+  handleSearch: function (showCompleted, searchText) {
+    this.setState({
+      showCompleted: showCompleted,
+      searchText: searchText.toLowerCase()
+    })
+  },
+  render: function () {
+    var {todos, showCompleted, searchText} = this.state;
+    var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
 
-		/*const todoToRemove = this.state.todos.filter((todo) => {
-
-	      if(todo.id == taskId){
-	      	console.log(todo.id);
-	      	return x;
-	      }
-	      x += 1;
-
-	    });*/
-
-		this.state.todos.splice(x, 1);
-
-		this.setState({
-			todos:this.state.todos
-		});
-	},
-	handleTask:function(task){
-		this.state.todos.push({id: this.state.todos.length, text: task});
-
-		this.setState({
-			todos:this.state.todos
-		});
-	},
-	render: function(){
-		var todos = this.state.todos;
-
-		return(
-			<div className="row">
-				<h1>Your Todo List</h1>
-				<TodoList todos={todos} deleteTask={this.handleDelete}/>
-				<h2>Add A Task</h2>
-				<TodoForm addTask={this.handleTask}/>
-			</div>
-		);
-	}
+    return (
+      <div>
+        <TodoSearch onSearch={this.handleSearch}/>
+        <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
+        <AddTodo onAddTodo={this.handleAddTodo}/>
+      </div>
+    )
+  }
 });
 
 module.exports = TodoApp;

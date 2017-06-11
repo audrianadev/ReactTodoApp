@@ -1,18 +1,17 @@
 var React = require('react');
 
 var Todo = React.createClass({
-	deleteClicked: function(e){
-		this.props.deletePressed(this);
-	},
-	render: function(){
-		var {id, text} = this.props;
-		return (
-			<div>
-				{text}
-				<button onClick={this.deleteClicked}>X</button>
-			</div>
-		)
-	}
+  render: function () {
+    var {id, text, completed} = this.props;
+
+    return (
+      <div onClick={() =>{
+          this.props.onToggle(id);
+        }}>
+        {text} <input type="checkbox" checked={completed}/>
+      </div>
+    )
+  }
 });
 
 module.exports = Todo;

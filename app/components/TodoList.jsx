@@ -2,40 +2,22 @@ var React = require('react');
 var Todo = require('Todo');
 
 var TodoList = React.createClass({
-	getDefaultProps: function () {
-        return {
-            todos:[]
-        }
-    },
-	getInitialState: function(){
-		return{
-			todos: this.props.todos
-		}
-	},
-	deletePressed: function(task){
-		this.props.deleteTask(task);
-	},
-	render: function(){
-		var todos = this.state.todos;
-		var renderTodos = () => {
-			return todos.map((todo) => {
-				return (
-					//{..todo} let's you spread out allattributes on todo into it's own props
-					<Todo key={todo.id} {...todo} deletePressed={this.deletePressed} />
-				);
-			});
-		};
+  render: function () {
+    var {todos} = this.props;
+    var renderTodos = () => {
+      return todos.map((todo) => {
+        return (
+          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
+        );
+      });
+    };
 
-		return (
-			<div className="row">
-				<div className="large-12 columns">
-					{renderTodos()}
-				</div>
-			</div>
-		)
-	}
-
+    return (
+      <div>
+        {renderTodos()}
+      </div>
+    )
+  }
 });
 
 module.exports = TodoList;
-
