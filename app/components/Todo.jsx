@@ -1,23 +1,39 @@
 var React = require('react');
+var {connect} = require('react-redux');
+var moment = require('moment');
+var actions = require('actions');
 
-var Todo = React.createClass({
+export var Todo = React.createClass({
   render: function () {
-    var {id, text, completed} = this.props;
+    var {id, text, completed, createdAt, completedAt, dispatch} = this.props;
+    var renderDate = () =>{
+      var message = 'Created ';
+      var timestamp = createdAt;
 
+      if(completed){
+        message = 'Completed ';
+        timestamp = completedAt;
+      }
+
+      return message + moment.unix(timestamp).format('MMM Do YYYY @ h:mm a');
+    };
     return (
       <div>
       <span onClick={() =>{
-          this.props.onToggle(id);
+          dispatch(actions.toggleTodo(id));
         }}>
-        <input type="checkbox" checked={completed}/> {text}
+        <input type="checkbox" checked={completed}/>
+        <p>{text}</p>
+        <p>{renderDate()}</p>
       </span>
       <button className="button" onClick={
           () =>{
-            this.props.deleteClicked(id);
+            dispatch(actions.deleteTodo(id));
           }}>X</button>
       </div>
     )
   }
 });
 
-module.exports = Todo;
+//connect redux store to an individual component
+export default connect()(Todo);
