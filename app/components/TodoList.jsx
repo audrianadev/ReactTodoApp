@@ -9,7 +9,7 @@ export var TodoList = React.createClass({
     var renderTodos = () => {
       if (todos.length === 0) {
         return (
-          <p>Nothing To Do</p>
+          <i style={{fontSize:16 + "px"}}>Nothing To Do</i>
         );
       }
 
@@ -21,8 +21,10 @@ export var TodoList = React.createClass({
     };
 
     return (
-      <div>
+      <div className="row todoList">
+        <div className="columns small-12">
         {renderTodos()}
+        </div>
       </div>
     )
   }

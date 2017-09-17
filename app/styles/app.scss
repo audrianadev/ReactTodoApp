@@ -6,3 +6,79 @@
 @include foundation-everything;
 
 // Components
+body{
+    padding: 15px;
+    font-size:18px;
+    background-color: #c7b29a;
+    padding-bottom:30px;
+    color: #362f2d;
+}
+
+h1, h2, h3{
+  color: #362f2d;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.button, .button:active, .button:focus{
+    background-color: #998675;
+    color: #FFF;
+    border: none;
+    outline: none;
+    padding: 10px 12px;
+}
+.button:hover{
+    background-color: #7b6b5d;
+}
+
+.todo{
+  display: block;
+  border-bottom: 1px solid #998675;
+  padding: 8px 10px;
+  background-color: #FFF;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.todo span{
+          font-weight: bold;
+}
+
+.todo small{
+  font-style: italic;
+}
+
+h1{
+  font-size: 30px;
+  margin-bottom: 40px;
+}
+
+h2{
+    font-size: 20px;
+}
+
+.todoList{
+  margin-bottom: 50px;
+}
+
+.todoSearch{
+  background-color: #d5c8b9;
+  padding:15px 10px 10px;
+  margin-bottom: 20px;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.todoSearch input{
+  margin-bottom: 5px;
+}
+
+.todoSearch label{
+  color:#74563c;
+}

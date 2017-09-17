@@ -18,18 +18,23 @@ export var Todo = React.createClass({
       return message + moment.unix(timestamp).format('MMM Do YYYY @ h:mm a');
     };
     return (
-      <div>
-      <span onClick={() =>{
+      <div onClick={() =>{
           dispatch(actions.toggleTodo(id));
-        }}>
-        <input type="checkbox" checked={completed}/>
-        <p>{text}</p>
-        <p>{renderDate()}</p>
-      </span>
-      <button className="button" onClick={
-          () =>{
-            dispatch(actions.deleteTodo(id));
-          }}>X</button>
+        }} className ="todo row">
+        <div className="columns small-1">
+          <input type="checkbox" checked={completed}/>
+        </div>
+        <div className="columns small-9 medium-10">
+          <p>{text}<br/>
+          <small>{renderDate()}</small></p>
+        </div>
+        <div className="columns small-2 medium-1">
+          <button className="button" onClick={
+            () =>{
+              dispatch(actions.deleteTodo(id));
+            }}  c>X</button>
+        </div>
+
       </div>
     )
   }

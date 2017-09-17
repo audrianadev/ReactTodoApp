@@ -17,12 +17,20 @@ export var AddTodo = React.createClass({
   },
   render: function () {
     return (
-      <div>
+      <div className="row">
+      <div className="columns small-12">
         <form onSubmit={this.handleSubmit}>
-          <input type="text" ref="todoText" placeholder="What do you need to do?"/>
-          <button className="button expanded">Add Todo</button>
+          <div className="row collapse">
+            <div className="small-10 medium-11 columns">
+              <input type="text" ref="todoText" placeholder="What do you need to do?"/>
+            </div>
+            <div className="small-2 medium-1 columns">
+              <button className="button postfix expanded">+</button>
+            </div>
+          </div>
         </form>
       </div>
+    </div>
     );
   }
 });

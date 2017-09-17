@@ -6,19 +6,19 @@ export var TodoSearch = React.createClass({
   render: function () {
     var {dispatch, showCompleted, searchText} = this.props;
     return (
-      <div>
-          <div>
+      <div className="row todoSearch">
+          <div className="columns small-12">
               <input type="search" ref="searchText" placeholder="Search todos" value={searchText} onChange={() =>{
                   var searchText = this.refs.searchText.value;
                   dispatch(actions.setSearchText(searchText));
                 }}/>
           </div>
-          <div>
+          <div className="columns small-12">
             <label>
               <input type="checkbox" ref="showCompleted" checked={showCompleted} onChange={() => {
                   dispatch(actions.toggleShowCompleted());
                 }}/>
-              Show completed todos</label>
+              Include completed todos?</label>
           </div>
       </div>
     );

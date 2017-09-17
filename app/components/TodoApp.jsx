@@ -11,14 +11,13 @@ var TodoApp = React.createClass({
   render: function () {
     return (
       <div className="row">
-        <div className="columns small-12">
-          <h1>Todo App</h1>
+        <div className="columns small-12  large-offset-2 large-8">
+          <h1>Todo List App</h1>
           <TodoSearch/>
-          <hr />
-          <h2>Your Todos</h2>
+          <h2>Your Todo List</h2>
           <TodoList/>
           <hr />
-          <h2>Add A Todo</h2>
+          <h2>Add A Task</h2>
           <AddTodo/>
         </div>
       </div>
