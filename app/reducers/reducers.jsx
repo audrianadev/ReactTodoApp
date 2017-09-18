@@ -51,6 +51,20 @@ export var todosReducer = (state=[], action) => {
           ...state,
           ...action.todos
         ];
+        case 'EDIT_TODO':
+          return state.map((todo) => {
+            if(todo.id === action.id){
+              var newText = action.text;
+
+              return {
+                id: todo.id,
+                text: newText,
+                createdAt: todo.createdAt,
+                completed: todo.completed,
+                completedAt: todo.completedAt
+              };
+            }
+          });
       case 'DELETE_TODO':
         var todoToDelete = 0;
 

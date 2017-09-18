@@ -25,7 +25,7 @@ export var AddTodo = React.createClass({
               <input type="text" ref="todoText" placeholder="What do you need to do?"/>
             </div>
             <div className="small-2 medium-1 columns">
-              <button className="button postfix expanded">+</button>
+              <button className="button postfix expanded"><i className="fa fa-plus" aria-hidden="true"></i></button>
             </div>
           </div>
         </form>

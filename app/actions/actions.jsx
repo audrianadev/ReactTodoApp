@@ -19,6 +19,14 @@ export var addTodos = (todos) =>{
   };
 };
 
+export var editTodo = (id, text) => {
+  return {
+    type: 'EDIT_TODO',
+    id,
+    text
+  };
+};
+
 export var deleteTodo = (id) => {
   return {
     type: 'DELETE_TODO',

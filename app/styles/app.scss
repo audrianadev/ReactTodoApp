@@ -46,13 +46,44 @@ hr {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+
+.todo i, .todo p, .todo input{
+  float: left;
+      width: auto;
+}
+
+.todo input, .todo input:focus{
+  background-color:transparent;
+  border:none;
+  box-shadow:none;
+  text-shadow: none;
+  border-bottom: 1px solid #362f2d;
+}
+.todo div:first-of-type .fa.fa-check{
+  margin-right: 5px;
+  font-size: 25px;
+}
+.todo .todoText:hover{
+  cursor: pointer;
+}
 .todo span{
-          font-weight: bold;
+  font-weight: bold;
 }
 
 .todo small{
   font-style: italic;
 }
+
+.todo input[type="checkbox"]{
+  display:none;
+}
+.todoCompleted *{
+  text-decoration: line-through;
+}
+.todo > div:last-of-type .button{
+  margin-right: 5px;
+}
+
 
 h1{
   font-size: 30px;
@@ -81,4 +112,12 @@ h2{
 
 .todoSearch label{
   color:#74563c;
+}
+
+.editMode{
+  display:none;
+}
+
+.strikeThrough{
+  text-decoration: line-through;
 }
