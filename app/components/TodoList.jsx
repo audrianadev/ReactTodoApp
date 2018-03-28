@@ -1,9 +1,10 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var {connect} = require('react-redux');
 import Todo from 'Todo';
 var TodoAPI = require('TodoAPI');
 
-export var TodoList = React.createClass({
+export var TodoList = createReactClass({
   render: function () {
     var {todos, showCompleted, searchText} = this.props;
     var renderTodos = () => {

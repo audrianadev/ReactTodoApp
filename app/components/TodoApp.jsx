@@ -1,4 +1,5 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
 var uuid = require('node-uuid');
 var moment = require('moment');
 
@@ -7,7 +8,7 @@ import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
 
 
-var TodoApp = React.createClass({
+var TodoApp = createReactClass({
   render: function () {
     return (
       <div className="row">

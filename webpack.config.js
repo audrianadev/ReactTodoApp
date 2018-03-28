@@ -3,8 +3,8 @@ var path = require('path');
 
 module.exports ={
   entry: [
-    "script!jquery/dist/jquery.min.js",
-    "script!foundation-sites/dist/foundation.min.js",
+    "script-loader!jquery/dist/jquery.min.js",
+    "script-loader!foundation-sites/dist/foundation.min.js",
     "./app/app.jsx"
   ],
   externals: {
@@ -14,6 +14,15 @@ module.exports ={
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery': 'jquery'
+    }),
+    new webpack.LoaderOptionsPlugin({
+      options:{
+        sassLoader:{
+          includePaths: [
+            path.resolve(__dirname, './node_modules/foundation-sites/scss')
+          ]
+        }
+      }
     })
   ],
   output: {
@@ -21,8 +30,8 @@ module.exports ={
     filename: './public/bundle.js'
   },
   resolve:{
-    root: __dirname,
-    modulesDirectories: [
+    modules: [
+      __dirname,
       'node_modules',
       './app/components',
       './app/api'
@@ -33,10 +42,10 @@ module.exports ={
       reducers: 'app/reducers/reducers.jsx',
       configureStore: 'app/store/configureStore.jsx'
     },
-    extensions: ['','.js', '.jsx']
+    extensions: ['.*','.js', '.jsx']
   },
   module:{
-    loaders:[
+    rules:[
       {
         loader: 'babel-loader',
         query:{
@@ -44,12 +53,10 @@ module.exports ={
         },
         test: /\.jsx?$/,
         exclude:/(node_modules|bower_components)/
-      }
-    ]
-  },
-  sassLoader: {
-    includePaths: [
-      path.resolve(__dirname, './node_modules/foundation-sites/scss')
+      }/*,
+      {
+        loader: 'sass-loader'
+      }*/
     ]
   },
   devtool: 'inline-source-map'
