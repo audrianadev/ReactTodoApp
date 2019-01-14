@@ -1,28 +1,24 @@
 var webpack = require('webpack');
 var path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports ={
   entry: [
     "script-loader!jquery/dist/jquery.min.js",
-    "script-loader!foundation-sites/dist/foundation.min.js",
+    "script-loader!foundation-sites/dist/js/foundation.min.js",
     "./app/app.jsx"
   ],
   externals: {
-    jquery: 'jQuery'
+    jquery: 'jQuery',
   },
   plugins: [
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery': 'jquery'
     }),
-    new webpack.LoaderOptionsPlugin({
-      options:{
-        sassLoader:{
-          includePaths: [
-            path.resolve(__dirname, './node_modules/foundation-sites/scss')
-          ]
-        }
-      }
+    new MiniCssExtractPlugin({
+      filename: "./public/css/style.css",
+      chunkFilename: "[name].css"
     })
   ],
   output: {
@@ -53,11 +49,22 @@ module.exports ={
         },
         test: /\.jsx?$/,
         exclude:/(node_modules|bower_components)/
-      }/*,
+      },
       {
-        loader: 'sass-loader'
-      }*/
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+             loader: 'sass-loader',
+             query: {
+               includePaths: [path.resolve(__dirname, 'node_modules/foundation-sites/scss')]
+             }
+           }
+        ],
+      }
     ]
   },
-  devtool: 'inline-source-map'
+  devtool: 'source-map'
 };

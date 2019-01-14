@@ -1,0 +1,52 @@
+.todo{
+  display: block;
+  border-bottom: 1px solid $arrow-town;
+  padding: 8px 10px;
+  background-color: $white;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  &__text{
+    :hover{
+      cursor: pointer;
+    }
+    & .fa.fa-check{
+      margin-right: 5px;
+      font-size: 25px;
+    }
+  }
+  & i, & p, & input{
+    float: left;
+    width: auto;
+  }
+  & input, & input:focus{
+    float: left;
+    width: auto;
+    background-color:transparent;
+    border:none;
+    box-shadow:none;
+    text-shadow: none;
+    border-bottom: 1px solid $dune;
+  }
+  & span{
+    font-weight: bold;
+  }
+  & small{
+    font-style: italic;
+  }
+}
+
+.todo input[type="checkbox"]{
+  display:none;
+}
+
+.todo > div:last-of-type .button{
+  margin-right: 5px;
+}
+
+.todoCompleted *{
+  text-decoration: line-through;
+}
+
+.editMode{
+  display:none;
+}

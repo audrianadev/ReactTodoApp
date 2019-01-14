@@ -31,7 +31,7 @@ export var Todo = createReactClass({
     };
     return (
       <div  className ={completed ? 'todo row todoCompleted' : 'todo row'}>
-        <div className="columns small-9 medium-10 todoText" onClick={() =>{
+        <div className="columns small-9 medium-10 todo__text" onClick={() =>{
             dispatch(actions.toggleTodo(id));
           }}>
           <i className="fa fa-check" aria-hidden="true"></i>

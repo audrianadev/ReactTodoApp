@@ -1,0 +1,30 @@
+body{
+    padding: 15px;
+    font-size:18px;
+    background-color: $rodeo-dust;
+    padding-bottom:30px;
+    color: $dune;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid $gallery;
+}
+
+.button, .button:active, .button:focus{
+    background-color: $arrow-town;
+    color: $white;
+    border: none;
+    outline: none;
+    padding: 10px 12px;
+}
+
+.button:hover{
+    background-color: $sandstone;
+}
+
+.strikeThrough{
+  text-decoration: line-through;
+}
