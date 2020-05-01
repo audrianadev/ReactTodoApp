@@ -1,5 +1,4 @@
 var React = require('react');
-var createReactClass = require('create-react-class');
 var uuid = require('node-uuid');
 var moment = require('moment');
 
@@ -8,8 +7,8 @@ import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
 
 
-var TodoApp = createReactClass({
-  render: function () {
+class TodoApp extends React.Component{
+  render() {
     return (
       <div className="row">
         <div className="columns small-12  large-offset-2 large-8">
@@ -24,6 +23,6 @@ var TodoApp = createReactClass({
       </div>
     )
   }
-});
+};
 
 module.exports = TodoApp;

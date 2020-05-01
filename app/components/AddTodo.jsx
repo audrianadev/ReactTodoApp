@@ -1,9 +1,8 @@
 var React = require('react');
-var createReactClass = require('create-react-class');
 var {connect} = require('react-redux');
 var actions = require('actions');
 
-export var AddTodo = createReactClass({
+class AddTodo extends React.Component{
   handleSubmit: function (e) {
     e.preventDefault();
     var {dispatch} = this.props;
@@ -16,7 +15,7 @@ export var AddTodo = createReactClass({
       this.refs.todoText.focus();
     }
   },
-  render: function () {
+  render () {
     return (
       <div className="row">
       <div className="columns small-12">
@@ -34,6 +33,6 @@ export var AddTodo = createReactClass({
     </div>
     );
   }
-});
+};
 
 export default connect()(AddTodo);

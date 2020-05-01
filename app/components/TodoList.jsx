@@ -1,11 +1,10 @@
 var React = require('react');
-var createReactClass = require('create-react-class');
 var {connect} = require('react-redux');
 import Todo from 'Todo';
 var TodoAPI = require('TodoAPI');
 
-export var TodoList = createReactClass({
-  render: function () {
+class TodoList extends React.Component{
+  render(){
     var {todos, showCompleted, searchText} = this.props;
     var renderTodos = () => {
       if (todos.length === 0) {
@@ -29,7 +28,7 @@ export var TodoList = createReactClass({
       </div>
     )
   }
-});
+};
 
 //connect redux store to an individual component
 export default connect(

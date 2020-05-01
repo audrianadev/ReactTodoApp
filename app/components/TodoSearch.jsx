@@ -1,10 +1,9 @@
 var React = require('react');
-var createReactClass = require('create-react-class');
 var {connect} = require('react-redux');
 var actions = require('actions');
 
-export var TodoSearch = createReactClass({
-  render: function () {
+class TodoSearch extends React.Component{
+  render() {
     var {dispatch, showCompleted, searchText} = this.props;
     return (
       <div className="row todoSearch">
@@ -24,7 +23,7 @@ export var TodoSearch = createReactClass({
       </div>
     );
   }
-});
+};
 
 export default connect(
   (state) => {

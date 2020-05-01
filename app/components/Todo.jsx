@@ -1,22 +1,21 @@
 var React = require('react');
-var createReactClass = require('create-react-class');
 var {connect} = require('react-redux');
 var moment = require('moment');
 var actions = require('actions');
 
-export var Todo = createReactClass({
-  getInitialState: function () {
+class Todo extends React.Component{
+  getInitialState() {
       return {
           editMode:false
       }
   },
-  toggleEditMode: function () {
-    console.log(!this.state.editMode);
+  toggleEditMode () {
     this.setState({
       editMode: !this.state.editMode
     })
   },
-  render: function () {
+  render() {
+    //gets all the values in this.props and sets them to variables of the same name
     var {id, text, completed, createdAt, completedAt, dispatch} = this.props;
     var renderDate = () =>{
       var message = 'Created ';
@@ -54,7 +53,7 @@ export var Todo = createReactClass({
       </div>
     )
   }
-});
+};
 
 //connect redux store to an individual component
 export default connect()(Todo);
