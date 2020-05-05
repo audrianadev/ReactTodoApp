@@ -3,17 +3,19 @@ var {connect} = require('react-redux');
 var moment = require('moment');
 var actions = require('actions');
 
-class Todo extends React.Component{
+export class Todo extends React.Component{
   getInitialState() {
       return {
           editMode:false
       }
-  },
+  }
+  
   toggleEditMode () {
     this.setState({
       editMode: !this.state.editMode
     })
-  },
+  }
+
   render() {
     //gets all the values in this.props and sets them to variables of the same name
     var {id, text, completed, createdAt, completedAt, dispatch} = this.props;

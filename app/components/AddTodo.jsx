@@ -2,8 +2,8 @@ var React = require('react');
 var {connect} = require('react-redux');
 var actions = require('actions');
 
-class AddTodo extends React.Component{
-  handleSubmit: function (e) {
+export class AddTodo extends React.Component{
+  handleSubmit(e) {
     e.preventDefault();
     var {dispatch} = this.props;
     var todoText = this.refs.todoText.value;
@@ -14,7 +14,8 @@ class AddTodo extends React.Component{
     } else {
       this.refs.todoText.focus();
     }
-  },
+  }
+  
   render () {
     return (
       <div className="row">
