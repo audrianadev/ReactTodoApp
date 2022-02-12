@@ -3,7 +3,11 @@ var {connect} = require('react-redux');
 var actions = require('actions');
 
 class TodoSearch extends React.Component{
-  render() {
+  constructor(props: TodosState){
+    super(props)
+  }
+  
+  render(): JSX.Element {
     var {dispatch, showCompleted, searchText} = this.props;
     return (
       <div className="row todoSearch">
@@ -26,7 +30,7 @@ class TodoSearch extends React.Component{
 };
 
 export default connect(
-  (state) => {
+  (state: TodosState) => {
     return {
       showCompleted: state.showCompleted,
       searchText: state.searchText

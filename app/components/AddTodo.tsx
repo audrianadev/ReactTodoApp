@@ -3,7 +3,13 @@ var {connect} = require('react-redux');
 var actions = require('actions');
 
 export class AddTodo extends React.Component{
-  handleSubmit(e) {
+  constructor(props: TodosState){
+    super(props)
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e: any) {
     e.preventDefault();
     var {dispatch} = this.props;
     var todoText = this.refs.todoText.value;
@@ -16,7 +22,7 @@ export class AddTodo extends React.Component{
     }
   }
   
-  render () {
+  render (): JSX.Element {
     return (
       <div className="row">
       <div className="columns small-12">

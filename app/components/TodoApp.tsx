@@ -2,13 +2,13 @@ var React = require('react');
 var uuid = require('node-uuid');
 var moment = require('moment');
 
-import TodoList from 'TodoList';
-import AddTodo from 'AddTodo';
-import TodoSearch from 'TodoSearch';
+import TodoList from './TodoList';
+import AddTodo from './AddTodo';
+import TodoSearch from './TodoSearch';
 
 
 class TodoApp extends React.Component{
-  render() {
+  render(): JSX.Element {
     return (
       <div className="row">
         <div className="columns small-12  large-offset-2 large-8">

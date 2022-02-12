@@ -4,10 +4,14 @@ var moment = require('moment');
 var actions = require('actions');
 
 export class Todo extends React.Component{
-  getInitialState() {
-      return {
-          editMode:false
-      }
+  constructor(props: TodosState){
+    super(props);
+    this.state ={
+      ...this.state,
+      editMode: false
+    }
+
+    this.toggleEditMode = this.toggleEditMode.bind(this);
   }
   
   toggleEditMode () {
@@ -16,7 +20,7 @@ export class Todo extends React.Component{
     })
   }
 
-  render() {
+  render(): JSX.Element {
     //gets all the values in this.props and sets them to variables of the same name
     var {id, text, completed, createdAt, completedAt, dispatch} = this.props;
     var renderDate = () =>{

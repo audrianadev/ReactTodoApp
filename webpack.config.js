@@ -6,10 +6,11 @@ module.exports ={
   entry: [
     "script-loader!jquery/dist/jquery.min.js",
     "script-loader!foundation-sites/dist/js/foundation.min.js",
-    "./app/app.jsx"
+    "./app/app.tsx"
   ],
   externals: {
     jquery: 'jQuery',
+    foundationSites: 'foundation-sites'
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -33,38 +34,43 @@ module.exports ={
       './app/api'
     ],
     alias:{
-      applicationStyles: 'app/styles/app.scss',
-      actions: 'app/actions/actions.jsx',
-      reducers: 'app/reducers/reducers.jsx',
-      configureStore: 'app/store/configureStore.jsx'
+      applicationStyles: 'app/styles/style.scss',
+      actions: 'app/actions/actions.tsx',
+      reducers: 'app/reducers/reducers.tsx',
+      configureStore: 'app/store/configureStore.tsx'
     },
-    extensions: ['.*','.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.jsx', '.react.js', '.*','.js']
   },
   module:{
     rules:[
-      {
+      { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
+      /*{
         loader: 'babel-loader',
         query:{
           presets:['react', 'es2015']
         },
         test: /\.jsx?$/,
         exclude:/(node_modules|bower_components)/
-      },
+      },*/
       {
-        test: /\.scss$/,
+        test: /.(?:sass|scss)$/,
         use: [
+          // Creates `style` nodes from JS strings
           "style-loader",
           MiniCssExtractPlugin.loader,
+          // Translates CSS into CommonJS
           "css-loader",
           {
+            // Compiles Sass to CSS
              loader: 'sass-loader',
              query: {
-               includePaths: [path.resolve(__dirname, 'node_modules/foundation-sites/scss')]
+               includePaths: [path.resolve(__dirname, 'node_modules')]
              }
            }
         ],
       }
     ]
   },
-  devtool: 'source-map'
+  devtool: 'source-map',
+  mode: 'development'
 };

@@ -1,4 +1,4 @@
-var expect = require('expect');
+//var expect = require('expect');
 var reducers = require('reducers');
 var df = require('deep-freeze-strict');
 //deep freeze make sure reducers aren't modifying things

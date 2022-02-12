@@ -1,10 +1,14 @@
 var React = require('react');
 var {connect} = require('react-redux');
-import Todo from 'Todo';
+import Todo from './Todo';
 var TodoAPI = require('TodoAPI');
 
 class TodoList extends React.Component{
-  render(){
+  constructor(props: TodosState){
+    super(props)
+  }
+  
+  render(): JSX.Element{
     var {todos, showCompleted, searchText} = this.props;
     var renderTodos = () => {
       if (todos.length === 0) {
@@ -13,7 +17,7 @@ class TodoList extends React.Component{
         );
       }
 
-      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
+      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo: Todo) => {
         return (
           <Todo key={todo.id} {...todo} />
         );
@@ -32,7 +36,7 @@ class TodoList extends React.Component{
 
 //connect redux store to an individual component
 export default connect(
-  (state) => {
+  (state: TodosState) => {
     return state;
   }
 )(TodoList);

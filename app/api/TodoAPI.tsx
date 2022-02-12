@@ -1,8 +1,6 @@
-var $ = require('jquery');
-
 module.exports ={
-  setTodos: function (todos){
-    if($.isArray(todos)){
+  setTodos: function (todos: Todo){
+    if(Array.isArray(todos)){
       //convert string to array (JSON.stringify)
       localStorage.setItem('todos', JSON.stringify(todos));
       return todos;
@@ -18,13 +16,13 @@ module.exports ={
 
     }
 
-    return $.isArray(todos) ? todos : [];
+    return Array.isArray(todos) ? todos : [];
   },
-  filterTodos: function(todos, showCompleted, searchText){
+  filterTodos: function(todos: Array<Todo>, showCompleted: boolean, searchText: string){
     var filteredTodos = todos;
 
     //Filter By completed
-    filteredTodos = filteredTodos.filter((todo) => {
+    filteredTodos = filteredTodos.filter((todo: Todo) => {
       return !todo.completed || showCompleted;
     });
 

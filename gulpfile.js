@@ -1,40 +1,49 @@
 'use strict';
 
-var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
-var nodemon = require('gulp-nodemon');
-var webpack = require('webpack-stream');
-var sass = require('gulp-sass');
-var exec = require('child_process').exec
+const gulp = require('gulp');
+const browserSync = require('browser-sync').create();
+const nodemon = require('gulp-nodemon');
+const webpack = require('webpack-stream');
+const sass = require('gulp-sass');
 
-gulp.task('sass', function () {
-  return gulp.src('scss/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('css'))
-    .pipe(browserSync.stream());
-});
+function startBrowserSync(){
+  browserSync.init({
+    proxy: "http://localhost:3000",
+    port: 7000,
+    reloadDelay: 1000
+  });
+}
 
-gulp.task('sass:watch', function () {
-  gulp.watch('scss/*.scss', ['sass']);
-});
+function browsersyncReload(cb){
+  browserSync.reload();
+  cb();
+}
 
-gulp.task('browser-sync', ['develop'], function() {
-    browserSync.init({
-        proxy: "http://localhost:3000",
-        port: 7000,
-        reloadDelay: 1000
-    });
+function buildStyles() {
+  return gulp.src('./app/styles/**/*.scss')
+    .pipe(sass({
+      includePaths: ['node_modules']
+    }).on('error', sass.logError))
+    //outputs same name as main scss file (style.scss)
+    .pipe(gulp.dest('./public/css'))
+    .pipe(browserSync.reload({stream:true}));
+};
+exports.buildStyles = buildStyles;
 
-});
+function watchSass() {
+  gulp.watch('./app/styles/**/*.scss', gulp.series(buildStyles, browsersyncReload));
+}
 
-gulp.task('webpack', function() {
-  return gulp.src('./app/app.jsx')
-  .pipe(webpack(require('./webpack.config.js') ))
-  .pipe(gulp.dest('./'));
-});
+exports.watchSass = watchSass;
 
+function startWebpack(){
+    return gulp.src('./app/app.tsx')
+    .pipe(webpack(require('./webpack.config.js') ))
+    .pipe(gulp.dest('./'));
+}
+exports.startWebpack = startWebpack;
 
-gulp.task('develop', function (cb) {
+function startServer(cb){
   var started = false;
 
   return nodemon({ script:
@@ -65,6 +74,9 @@ gulp.task('develop', function (cb) {
 		// handle ctrl+c without a big weep
 		process.exit();
 	});
-})
+}
+exports.startServer = startServer;
 
-gulp.task('default', ['sass', 'sass:watch', 'webpack', 'browser-sync', 'develop']);
+
+
+exports.default = gulp.parallel(buildStyles, watchSass, startBrowserSync,  startServer, startWebpack);
