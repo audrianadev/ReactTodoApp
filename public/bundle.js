@@ -250,59 +250,42 @@ ReactDOM.render(React.createElement(Provider, { store: store },
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddTodo = void 0;
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var connect = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js").connect;
 var actions = __webpack_require__(/*! actions */ "./app/actions/actions.tsx");
-var AddTodo = /** @class */ (function (_super) {
-    __extends(AddTodo, _super);
-    function AddTodo(props) {
-        var _this = _super.call(this, props) || this;
-        _this.handleSubmit = _this.handleSubmit.bind(_this);
-        return _this;
-    }
-    AddTodo.prototype.handleSubmit = function (e) {
+function AddTodo(props) {
+    var _a = (0, react_1.useState)(""), inputValue = _a[0], setInputValue = _a[1];
+    console.log(inputValue);
+    var inputField = (0, react_1.useRef)();
+    var handleSubmit = function (e) {
         e.preventDefault();
-        var dispatch = this.props.dispatch;
-        var todoText = this.refs.todoText.value;
-        if (todoText.length > 0) {
-            this.refs.todoText.value = '';
-            dispatch(actions.addTodo(todoText));
-        }
-        else {
-            this.refs.todoText.focus();
+        var dispatch = props.dispatch;
+        if (inputField.current !== null || inputField.current !== undefined) {
+            setInputValue(inputValue);
+            var todoText = inputValue;
+            if (todoText.length > 0) {
+                setInputValue("");
+                dispatch(actions.addTodo(todoText));
+            }
+            else {
+                //inputField.current.focus();
+            }
         }
     };
-    AddTodo.prototype.render = function () {
-        return (React.createElement("div", { className: "row" },
-            React.createElement("div", { className: "columns small-12" },
-                React.createElement("form", { onSubmit: this.handleSubmit },
-                    React.createElement("div", { className: "row collapse" },
-                        React.createElement("div", { className: "small-10 medium-11 columns" },
-                            React.createElement("input", { type: "text", ref: "todoText", placeholder: "What do you need to do?" })),
-                        React.createElement("div", { className: "small-2 medium-1 columns" },
-                            React.createElement("button", { className: "button postfix expanded" },
-                                React.createElement("i", { className: "fa fa-plus", "aria-hidden": "true" }))))))));
-    };
-    return AddTodo;
-}(React.Component));
-exports.AddTodo = AddTodo;
+    return (React.createElement("div", { className: "row" },
+        React.createElement("div", { className: "columns small-12" },
+            React.createElement("form", { onSubmit: handleSubmit },
+                React.createElement("div", { className: "row collapse" },
+                    React.createElement("div", { className: "small-10 medium-11 columns" },
+                        React.createElement("input", { type: "text", value: inputValue, ref: inputField, placeholder: "What do you need to do?", onChange: function (e) {
+                                setInputValue(e.target.value);
+                            } })),
+                    React.createElement("div", { className: "small-2 medium-1 columns" },
+                        React.createElement("button", { className: "button postfix expanded" },
+                            React.createElement("i", { className: "fa fa-plus", "aria-hidden": "true" }))))))));
+}
 ;
 exports.default = connect()(AddTodo);
 
@@ -318,89 +301,57 @@ exports.default = connect()(AddTodo);
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Todo = void 0;
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var connect = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js").connect;
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 var actions = __webpack_require__(/*! actions */ "./app/actions/actions.tsx");
-var Todo = /** @class */ (function (_super) {
-    __extends(Todo, _super);
-    function Todo(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = __assign(__assign({}, _this.state), { editMode: false });
-        _this.toggleEditMode = _this.toggleEditMode.bind(_this);
-        return _this;
-    }
-    Todo.prototype.toggleEditMode = function () {
-        this.setState({
-            editMode: !this.state.editMode
-        });
+function Todo(props) {
+    //gets all the values in this.props and sets them to variables of the same name
+    var id = props.id, text = props.text, completed = props.completed, createdAt = props.createdAt, completedAt = props.completedAt, dispatch = props.dispatch;
+    var _a = (0, react_1.useState)('false'), editMode = _a[0], setEditMode = _a[1];
+    var _b = (0, react_1.useState)(text), inputValue = _b[0], setInputValue = _b[1];
+    //const inputText = useRef(null);
+    var toggleEditMode = function (e) {
+        setEditMode(editMode == "true" ? "false" : "true");
     };
-    Todo.prototype.render = function () {
-        var _this = this;
-        //gets all the values in this.props and sets them to variables of the same name
-        var _a = this.props, id = _a.id, text = _a.text, completed = _a.completed, createdAt = _a.createdAt, completedAt = _a.completedAt, dispatch = _a.dispatch;
-        var renderDate = function () {
-            var message = 'Created ';
-            var timestamp = createdAt;
-            if (completed) {
-                message = 'Completed ';
-                timestamp = completedAt;
-            }
-            return message + moment.unix(timestamp).format('MMM Do YYYY @ h:mm a');
-        };
-        return (React.createElement("div", { className: completed ? 'todo row todoCompleted' : 'todo row' },
-            React.createElement("div", { className: "columns small-9 medium-10 todo__text", onClick: function () {
+    /*const updateText = e => {
+      setInputValue(inputValue);
+    }*/
+    var renderDate = function () {
+        var message = 'Created ';
+        var timestamp = createdAt;
+        if (completed) {
+            message = 'Completed ';
+            timestamp = completedAt;
+        }
+        return message + moment.unix(timestamp).format('MMM Do YYYY @ h:mm a');
+    };
+    return (React.createElement("div", { className: completed ? 'todo row todoCompleted' : 'todo row' },
+        React.createElement("div", { className: "columns small-9 medium-10 todo__text" },
+            React.createElement("button", { className: "toggleCompleted", onClick: function () {
                     dispatch(actions.toggleTodo(id));
                 } },
-                React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
-                React.createElement("p", { className: this.state.editMode ? 'editMode' : '' },
-                    text,
-                    React.createElement("br", null),
-                    React.createElement("small", null, renderDate())),
-                React.createElement("input", { type: "text", ref: "text", value: text, onChange: function () {
-                        var text = _this.refs.text.value;
-                        dispatch(actions.editTodo(id, text));
-                    }, className: this.state.editMode ? '' : 'editMode' })),
-            React.createElement("div", { className: "columns small-3 medium-2" },
-                React.createElement("button", { className: this.state.editMode ? 'button editMode' : 'button', onClick: this.toggleEditMode },
-                    React.createElement("i", { className: "fa fa-pencil", "aria-hidden": "true" })),
-                React.createElement("button", { className: this.state.editMode ? 'button' : 'button editMode', onClick: this.toggleEditMode },
-                    React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" })),
-                React.createElement("button", { className: "button", onClick: function () {
-                        dispatch(actions.deleteTodo(id));
-                    } }, "X"))));
-    };
-    return Todo;
-}(React.Component));
-exports.Todo = Todo;
+                React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" })),
+            React.createElement("p", { className: editMode == "true" ? 'editMode' : '' },
+                text,
+                React.createElement("br", null),
+                React.createElement("small", null, renderDate())),
+            React.createElement("input", { type: "text", value: inputValue, onChange: function (e) {
+                    setInputValue(e.target.value);
+                    var text = e.target.value;
+                    dispatch(actions.editTodo(id, text));
+                }, className: editMode == "true" ? '' : 'editMode' })),
+        React.createElement("div", { className: "columns small-3 medium-2" },
+            React.createElement("button", { className: editMode == "true" ? 'button editMode' : 'button', onClick: toggleEditMode },
+                React.createElement("i", { className: "fa fa-pencil", "aria-hidden": "true" })),
+            React.createElement("button", { className: editMode == "true" ? 'button' : 'button editMode', onClick: toggleEditMode },
+                React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" })),
+            React.createElement("button", { className: "button", onClick: function (e) {
+                    dispatch(actions.deleteTodo(id));
+                } }, "X"))));
+}
 ;
 //connect redux store to an individual component
 exports.default = connect()(Todo);
@@ -417,21 +368,6 @@ exports.default = connect()(Todo);
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var uuid = __webpack_require__(/*! node-uuid */ "./node_modules/node-uuid/uuid.js");
@@ -439,24 +375,17 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 var TodoList_1 = __webpack_require__(/*! ./TodoList */ "./app/components/TodoList.tsx");
 var AddTodo_1 = __webpack_require__(/*! ./AddTodo */ "./app/components/AddTodo.tsx");
 var TodoSearch_1 = __webpack_require__(/*! ./TodoSearch */ "./app/components/TodoSearch.tsx");
-var TodoApp = /** @class */ (function (_super) {
-    __extends(TodoApp, _super);
-    function TodoApp() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    TodoApp.prototype.render = function () {
-        return (React.createElement("div", { className: "row" },
-            React.createElement("div", { className: "columns small-12  large-offset-2 large-8" },
-                React.createElement("h1", null, "Todo List App"),
-                React.createElement(TodoSearch_1.default, null),
-                React.createElement("h2", null, "Your Todo List"),
-                React.createElement(TodoList_1.default, null),
-                React.createElement("hr", null),
-                React.createElement("h2", null, "Add A Task"),
-                React.createElement(AddTodo_1.default, null))));
-    };
-    return TodoApp;
-}(React.Component));
+function TodoApp() {
+    return (React.createElement("div", { className: "row" },
+        React.createElement("div", { className: "columns small-12  large-offset-2 large-8" },
+            React.createElement("h1", null, "Todo List App"),
+            React.createElement("h2", null, "Add A Task"),
+            React.createElement(AddTodo_1.default, null),
+            React.createElement("hr", null),
+            React.createElement(TodoSearch_1.default, null),
+            React.createElement("h2", null, "Your Todo List"),
+            React.createElement(TodoList_1.default, null))));
+}
 ;
 module.exports = TodoApp;
 
@@ -472,21 +401,6 @@ module.exports = TodoApp;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -503,26 +417,19 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var connect = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js").connect;
 var Todo_1 = __webpack_require__(/*! ./Todo */ "./app/components/Todo.tsx");
 var TodoAPI = __webpack_require__(/*! TodoAPI */ "./app/api/TodoAPI.tsx");
-var TodoList = /** @class */ (function (_super) {
-    __extends(TodoList, _super);
-    function TodoList(props) {
-        return _super.call(this, props) || this;
-    }
-    TodoList.prototype.render = function () {
-        var _a = this.props, todos = _a.todos, showCompleted = _a.showCompleted, searchText = _a.searchText;
-        var renderTodos = function () {
-            if (todos.length === 0) {
-                return (React.createElement("i", { style: { fontSize: 16 + "px" } }, "Nothing To Do"));
-            }
-            return TodoAPI.filterTodos(todos, showCompleted, searchText).map(function (todo) {
-                return (React.createElement(Todo_1.default, __assign({ key: todo.id }, todo)));
-            });
-        };
-        return (React.createElement("div", { className: "row todoList" },
-            React.createElement("div", { className: "columns small-12" }, renderTodos())));
+function TodoList(props) {
+    var todos = props.todos, showCompleted = props.showCompleted, searchText = props.searchText;
+    var renderTodos = function () {
+        if (todos.length === 0) {
+            return (React.createElement("i", { style: { fontSize: 16 + "px" } }, "Nothing To Do"));
+        }
+        return TodoAPI.filterTodos(todos, showCompleted, searchText).map(function (todo) {
+            return (React.createElement(Todo_1.default, __assign({ key: todo.id }, todo)));
+        });
     };
-    return TodoList;
-}(React.Component));
+    return (React.createElement("div", { className: "row todoList" },
+        React.createElement("div", { className: "columns small-12" }, renderTodos())));
+}
 ;
 //connect redux store to an individual component
 exports.default = connect(function (state) {
@@ -541,48 +448,29 @@ exports.default = connect(function (state) {
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var connect = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js").connect;
 var actions = __webpack_require__(/*! actions */ "./app/actions/actions.tsx");
-var TodoSearch = /** @class */ (function (_super) {
-    __extends(TodoSearch, _super);
-    function TodoSearch(props) {
-        return _super.call(this, props) || this;
-    }
-    TodoSearch.prototype.render = function () {
-        var _this = this;
-        var _a = this.props, dispatch = _a.dispatch, showCompleted = _a.showCompleted, searchText = _a.searchText;
-        return (React.createElement("div", { className: "row todoSearch" },
-            React.createElement("div", { className: "columns small-12" },
-                React.createElement("input", { type: "search", ref: "searchText", placeholder: "Search todos", value: searchText, onChange: function () {
-                        var searchText = _this.refs.searchText.value;
-                        dispatch(actions.setSearchText(searchText));
-                    } })),
-            React.createElement("div", { className: "columns small-12" },
-                React.createElement("label", null,
-                    React.createElement("input", { type: "checkbox", ref: "showCompleted", checked: showCompleted, onChange: function () {
-                            dispatch(actions.toggleShowCompleted());
-                        } }),
-                    "Include completed todos?"))));
-    };
-    return TodoSearch;
-}(React.Component));
+function TodoSearch(props) {
+    var dispatch = props.dispatch, showCompleted = props.showCompleted, searchText = props.searchText;
+    var _a = (0, react_1.useState)(searchText), inputValue = _a[0], setInputValue = _a[1];
+    var searchTextInput = (0, react_1.useRef)();
+    return (React.createElement("div", { className: "row todoSearch" },
+        React.createElement("div", { className: "columns small-12" },
+            React.createElement("input", { type: "search", ref: searchTextInput, placeholder: "Search todos", value: inputValue, onChange: function (e) {
+                    var searchText = e.target.value;
+                    setInputValue(e.target.value);
+                    dispatch(actions.setSearchText(searchText));
+                } })),
+        React.createElement("div", { className: "columns small-12" },
+            React.createElement("label", null,
+                React.createElement("input", { type: "checkbox", checked: showCompleted, onChange: function (e) {
+                        dispatch(actions.toggleShowCompleted());
+                    } }),
+                "Include completed todos?"))));
+}
 ;
 exports.default = connect(function (state) {
     return {
@@ -679,14 +567,10 @@ var todosReducer = function (state, action) {
                 }
             });
         case 'DELETE_TODO':
-            var todoToDelete = 0;
-            state.map(function (todo) {
-                if (todo.id === action.id) {
-                    todoToDelete = todo.id;
-                }
+            var newState = state.filter(function (todo) {
+                return todo.id != action.id;
             });
-            state.splice(todoToDelete, 1);
-            return __spreadArray([], state, true);
+            return __spreadArray([], newState, true);
         default:
             return state;
     }

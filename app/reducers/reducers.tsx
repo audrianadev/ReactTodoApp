@@ -66,17 +66,13 @@ export var todosReducer = (state= [], action: any) => {
             }
           });
       case 'DELETE_TODO':
-        var todoToDelete = 0;
 
-        state.map((todo) => {
-          if(todo.id === action.id){
-            todoToDelete = todo.id;
-          }
-        });
-    		state.splice(todoToDelete, 1);
+        var newState = state.filter((todo)=>{
+          return todo.id != action.id;
+        })
 
     		return [
-          ...state
+          ...newState
         ];
 
     default:

@@ -3821,7 +3821,7 @@ hr {
   .todo__text .fa.fa-check {
     margin-right: 5px;
     font-size: 25px; }
-  .todo i, .todo p, .todo input {
+  .todo .toggleCompleted, .todo p, .todo input {
     float: left;
     width: auto; }
   .todo input, .todo input:focus {

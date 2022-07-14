@@ -22,7 +22,7 @@ module.exports ={
     var filteredTodos = todos;
 
     //Filter By completed
-    filteredTodos = filteredTodos.filter((todo: Todo) => {
+    filteredTodos = filteredTodos.filter((todo: any) => {
       return !todo.completed || showCompleted;
     });
 
